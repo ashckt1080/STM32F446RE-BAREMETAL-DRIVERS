@@ -1,0 +1,30 @@
+#include <stm32f446re.h>
+
+void delay(void) {
+
+	for(volatile uint32_t i = 0; i < 500000; i++);
+
+}
+
+int main(void) {
+
+	GPIO_Handle LED;
+
+	LED.pGPIOX = GPIOA;
+	LED.GPIOX_PINCONFIG.GPIO_PinNumber = GPIO_PIN_5;
+	LED.GPIOX_PINCONFIG.GPIO_PinMode = GPIO_MODE_OUTPUT;
+	LED.GPIOX_PINCONFIG.GPIO_PinOTYPE = GPIO_OTYPE_PUSHPULL;
+	LED.GPIOX_PINCONFIG.GPIO_PinPUPD = GPIO_PUPD_NO;
+	LED.GPIOX_PINCONFIG.GPIO_PinSpeed = GPIO_SPEED_LOW;
+	LED.GPIOX_PINCONFIG.GPIO_PinALTFMode = 0;
+
+	GPIO_INIT(&LED);
+
+	while(1) {
+
+		GPIO_TOGGLEPIN(GPIOA, GPIO_PIN_5);
+		delay();
+
+	}
+
+}
